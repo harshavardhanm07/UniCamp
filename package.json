@@ -1,0 +1,19 @@
+{
+  "name": "unicamp",
+  "version": "1.0.0",
+  "description": "This is the backend for the unicamp project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harshavardhanm07/UniCamp.git"
+  },
+  "author": "karthik, harsha, anthony",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/harshavardhanm07/UniCamp/issues"
+  },
+  "homepage": "https://github.com/harshavardhanm07/UniCamp#readme"
+}
