@@ -1,9 +1,12 @@
 <p align="center">
-  <img src="/logo.png" alt="logo" height="300px" width="300px"/>
-  
-# UniCamp
+  <img src="/Logo1.png" alt="logo" height="300px" width="300px"/>
 </p>
+
+
+
+<p align="center">
 UNICAMP is a comprehensive web application designed to empower students to take control of their health and well-being.
+</p>
 
 ## Architecture Design
 <p align="center">
