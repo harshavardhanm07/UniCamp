@@ -15,7 +15,7 @@ const User = require('../db').collection('Users');
 
 // Passport session setup
 passport.serializeUser(function (user, done) {
-  console.log('user', user, 'done', done);
+  // console.log('user', user, 'done', done);
   if (user) {
     console.log('serialize' + user._id);
     done(null, user._id);
@@ -27,7 +27,7 @@ passport.serializeUser(function (user, done) {
 
 // used to deserialize the user
 passport.deserializeUser(async function (id, done) {
-  console.log('deserialize' + id);
+  // console.log('deserialize' + id);
 
   //   console.log(id);
   const user = await User.findOne(new ObjectId(id));
@@ -67,8 +67,8 @@ passport.use(
             name: req.body.name,
             email: req.body.email,
             password: userPassword,
-            age: req.body.age,
-            mobile: req.body.mobile,
+            // age: req.body.age,
+            // mobile: req.body.mobile,
             authMethod: 'local',
           };
 

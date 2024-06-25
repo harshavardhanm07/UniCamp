@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/logincontext';
 import axios from 'axios';
 // import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import BASE_URL from '../config';
 // import { UserNameContext } from '../context/namecontext';
 
@@ -52,7 +52,7 @@ export default function SignUp(props) {
           //   props.showAlert('Signup Success', 'success');
           setIsLoggedIn(true);
           //   updateUserName(json.user.name);
-          navigate('/');
+          navigate('/addHealthData');
         }
       } else {
         props.showAlert('Something error occurred', 'danger');

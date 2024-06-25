@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import BASE_URL from '../config';
+import { useNavigate, Link } from 'react-router-dom';
+
 
 function HealthForm() {
+  const navigate = useNavigate();
   const [medicalHistory, setMedicalHistory] = useState('');
   const [allergies, setAllergies] = useState('');
   const [diet, setDiet] = useState('');
@@ -56,12 +59,11 @@ function HealthForm() {
       },
     };
 
-    // Send data to server...
 
     await axios.post(BASE_URL + '/health', data, {
       withCredentials: true,
     });
-
+    navigate('/dashboard')
   };
 
   return (

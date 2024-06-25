@@ -126,6 +126,7 @@ const googleCallback =
 
 const successLogin = (req, res) => {
   let success = false;
+  
   if (req.user) {
     // console.log("hello")
     // set the cookie set the user as authenticated
@@ -140,7 +141,7 @@ const successLogin = (req, res) => {
     // return res.status(200).json({ success: success, user: userI });
 
     // res.redirect(`http://192.168.0.103:3000`);
-    res.redirect(`http://localhost:3000/`);
+    res.redirect(`http://localhost:3000/addHealthData`);
   } else {
     return res
       .status(401)

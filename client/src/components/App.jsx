@@ -2,11 +2,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './Dashboard';
+import Home from './Landing';
 import Login from './Login';
 import Signup from './Signup';
 import HealthForm from './HealthForm';
 import { AuthProvider } from '../context/logincontext';
-
+import Profile from './Profile';
 function App() {
   return (
     <>
@@ -15,7 +16,7 @@ function App() {
           {/* <Header /> */}
           {/* <Alert alert={alert} /> */}
           <Routes>
-            <Route exact path="/" element={<Dashboard />} />
+            <Route exact path="/" element={<Home />} />
             <Route
               exact
               path="/login"
@@ -28,9 +29,19 @@ function App() {
             />
             <Route
               exact
-              path="/health-form"
+              path="/addHealthData"
               element={<HealthForm />}
             />
+             <Route
+              exact
+              path="/dashboard"
+              element={<Dashboard />}
+            />
+            <Route
+            exact
+            path='/profile'
+            element={<Profile />}
+          />
           </Routes>
           
       </AuthProvider>
