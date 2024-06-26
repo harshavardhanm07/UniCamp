@@ -8,47 +8,36 @@ import Signup from './Signup';
 import HealthForm from './HealthForm';
 import { AuthProvider } from '../context/logincontext';
 import Profile from './Profile';
+import BlogHome from './Blogs/BlogHome';
+import BlogDetails from './Blogs/BlogDetails';
+import BlogItem from './Blogs/BlogItem';
+import BlogCreate from './Blogs/BlogCreate';
+
+
 function App() {
   return (
     <>
-    <Router>
-      <AuthProvider>
+      <Router>
+        <AuthProvider>
           {/* <Header /> */}
           {/* <Alert alert={alert} /> */}
           <Routes>
             <Route exact path="/" element={<Home />} />
-            <Route
-              exact
-              path="/login"
-              element={<Login />}
-            />
-            <Route
-              exact
-              path="/signup"
-              element={<Signup />}
-            />
-            <Route
-              exact
-              path="/addHealthData"
-              element={<HealthForm />}
-            />
-             <Route
-              exact
-              path="/dashboard"
-              element={<Dashboard />}
-            />
-            <Route
-            exact
-            path='/profile'
-            element={<Profile />}
-          />
+            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/signup" element={<Signup />} />
+            <Route exact path="/addHealthData" element={<HealthForm />} />
+            <Route exact path="/dashboard" element={<Dashboard />} />
+            <Route exact path="/profile" element={<Profile />} />
+            {/* Blogs */}
+            <Route exact path="/blogs" element={<BlogHome />} />
+            <Route exact path="/blogs/blog/:id" element={<BlogDetails />} />
+            <Route exact path="/blogs/blog/edit/:id" element={< BlogCreate/>} />
+            <Route exact path="/blogs/create" element={< BlogCreate/>} />
           </Routes>
-          
-      </AuthProvider>
-    </Router>
-  </>
+        </AuthProvider>
+      </Router>
+    </>
   );
 }
-
 
 export default App;

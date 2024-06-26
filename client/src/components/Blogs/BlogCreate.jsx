@@ -12,12 +12,15 @@ import {
 } from "flowbite-react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import BASE_URL from "../../config";
 
-const Form = () => {
+
+const BlogCreate = () => {
   const { id } = useParams();
+  console.log(id)
   const navigate = useNavigate();
 //   const [file, setFile] = useState(null);
-  const [imageUploadError, setImageUploadError] = useState(null);
+  // const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({
     title: "",
     category: "uncategorized",
@@ -32,7 +35,7 @@ const Form = () => {
       const fetchBlog = async () => {
         setLoading(true);
         try {
-          const response = await axios.get(`http://localhost:5000/blog/${id}`);
+          const response = await axios.get(`${BASE_URL}/blog/${id}`);
           setFormData(response.data);
           setLoading(false);
         } catch (error) {
@@ -64,12 +67,12 @@ const Form = () => {
     try {
       setLoading(true);
       const response = id
-        ? await axios.post(`http://localhost:5000/blog/edit/${id}`, formData)
-        : await axios.post("http://localhost:5000/blog/create", formData);
+        ? await axios.post(`${BASE_URL}/blog/edit/${id}`, formData)
+        : await axios.post(`${BASE_URL}/blog/create`, formData);
 
       console.log(response.data);
       setLoading(false);
-      navigate("/blog");
+      navigate("/blogs");
     } catch (error) {
       setPublishError("Something went wrong");
       setLoading(false);
@@ -161,4 +164,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default BlogCreate;

@@ -6,7 +6,7 @@ const User = require('../db.js').collection('Users');
 const ensureAuthenticated = require('../middleware/ensureAuthenticated.js');
 const bCrypt = require('bcrypt-nodejs');
 var { ObjectId } = require('mongodb');
-
+const Health = require('../db.js').collection('Health');
 const getUser = async (req, res) => {
   const id = req.session.passport ? req.session.passport.user : null;
   // console.log(id);
@@ -125,7 +125,7 @@ const googleCallback =
   });
 
 const successLogin = (req, res) => {
-  let success = false;
+  // let success = false;
   
   if (req.user) {
     // console.log("hello")
@@ -136,13 +136,20 @@ const successLogin = (req, res) => {
     res.cookie('name', req.user.name);
 
     success = true;
-    var userI = { name: req.user.name, email: req.user.email };
+    // var userI = { name: req.user.name, email: req.user.email };
 
     // return res.status(200).json({ success: success, user: userI });
 
     // res.redirect(`http://192.168.0.103:3000`);
-    res.redirect(`http://localhost:3000/addHealthData`);
-  } else {
+    const healthData = Health.findOne({ userId: req.user._id });
+    if (!healthData) {
+      return res.redirect(`http://localhost:3000/addHealthData`);
+    }
+    else {
+      return res.redirect(`http://localhost:3000/dashboard`);
+    }
+  }
+ else {
     return res
       .status(401)
       .json({ success: success, message: 'Incorrect email or password' });

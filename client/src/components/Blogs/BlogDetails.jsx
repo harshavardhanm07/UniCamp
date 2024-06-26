@@ -92,7 +92,7 @@ export default function PostPage() {
 useEffect(() => {
   const fetchBlog = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/blog/${id}`);
+      const response = await axios.get(`http://localhost:5000/api/blog/${id}`);
       setPost(response.data);
       setLoading(false);
     } catch (error) {
@@ -113,7 +113,7 @@ useEffect(() => {
   return (
     <main className="p-3 flex flex-col max-w-6xl mx-auto min-h-screen">
       <div className="flex justify-end items-center mb-5">
-        <Button color="info" pill as={Link} to={`/blog/form/${id}`}>
+        <Button color="info" pill as={Link} to={`http://localhost:3000/blogs/blog/edit/${id}`}>
           Edit
         </Button>
       </div>

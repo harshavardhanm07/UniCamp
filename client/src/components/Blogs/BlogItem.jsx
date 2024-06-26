@@ -28,7 +28,7 @@ const BlogItem = ({ blog }) => {
           />
         </div>
         <Link
-          to={`details/${blog._id}`}
+          to={`blog/${blog._id}`}
           className="text-teal-600 mt-2 self-end"
         >
           Read more

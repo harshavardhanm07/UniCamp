@@ -19,7 +19,7 @@ exports.createBlog = async (req, res) => {
     const newBlog = {
       title,
       content,
-      // author,
+      author:req.user._id,
       category,
       createdAt: new Date(),
       likes: [],
@@ -45,6 +45,9 @@ exports.editBlog = async (req, res) => {
 
   try {
     const blog = await Blog.findOne({ _id: new ObjectId(id) });
+    if(blog.author!=req.user._id){
+      return res.status(401).json({ message: "You are not authorized to edit this blog" });
+    }
 
     if (!blog) {
       return res.status(404).json({ message: "Blog not found" });
@@ -67,7 +70,9 @@ exports.deleteBlog = async (req, res) => {
 
   try {
     const blog = await Blog.findOne({ _id: new ObjectId(id) });
-
+    if(blog.author!=req.user._id){
+      return res.status(401).json({ message: "You are not authorized to delete this blog" });
+    }
     if (!blog) {
       return res.status(404).json({ message: "Blog not found" });
     }
@@ -82,7 +87,7 @@ exports.deleteBlog = async (req, res) => {
 exports.likeBlog = async (req, res) => {
   const { id } = req.params;
   // const userId = req.user.id;
-  const userId = req.body.id;
+  const userId = req.user._id;
   try {
     // Find the blog by ID
     const blog = await Blog.findOne({ _id: new ObjectId(id) });
