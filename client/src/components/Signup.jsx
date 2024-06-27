@@ -171,6 +171,7 @@ export default function SignUp(props) {
             type="text"
             required
             className="w-full"
+            onChange={handleChange}
             name="name"
           />
         </div>

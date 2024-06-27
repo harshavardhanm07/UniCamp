@@ -7,6 +7,7 @@ const ensureAuthenticated = require('../middleware/ensureAuthenticated.js');
 const bCrypt = require('bcrypt-nodejs');
 var { ObjectId } = require('mongodb');
 const Health = require('../db.js').collection('Health');
+
 const getUser = async (req, res) => {
   const id = req.session.passport ? req.session.passport.user : null;
   // console.log(id);
@@ -19,12 +20,12 @@ const getUser = async (req, res) => {
         username: user.username,
       };
 
-      res.json(response);
+      res.status(200).json(response);
     } else {
-      res.json({ isLoggedIn: false });
+      res.status(401).json({ isLoggedIn: false });
     }
   } else {
-    res.json({ isLoggedIn: false });
+    res.status(401).json({ isLoggedIn: false });
   }
 };
 
