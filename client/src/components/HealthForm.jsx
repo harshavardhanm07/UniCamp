@@ -7,8 +7,8 @@ import '../css/HealthForm.css';
 
 function HealthForm() {
   const navigate = useNavigate();
-  const [medicalHistory, setMedicalHistory] = useState(['']);
-  const [allergies, setAllergies] = useState(['']);
+  const [medicalHistory, setMedicalHistory] = useState([]);
+  const [allergies, setAllergies] = useState([]);
   const [diet, setDiet] = useState('');
   const [activityLevel, setActivityLevel] = useState('');
   const [smokingStatus, setSmokingStatus] = useState('');

@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap');
+
+.custom-font {
+  font-family: 'Roboto', sans-serif;
+}
+
+.nav-link {
+  color: white;
+  text-decoration: none;
+  padding: 8px 16px;
+  transition: color 0.3s;
+}
+
+.nav-link:hover {
+  color: #ffcc00; /* Change to your desired hover color */
+}
+
+.nav-link.active {
+  font-weight: bold;
+}
+
+.navbar-brand, .nav-link {
+  text-decoration: none !important;
+}
+
+.navbar {
+  background-color: #1a202c; /* Custom navbar color */
+}

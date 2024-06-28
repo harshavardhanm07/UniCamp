@@ -122,7 +122,7 @@ export default function Login(props) {
         </Button>
         <Button
           onClick={handleGOauthLogin}
-          className="btn btn-primary login-button btn-submit mt-4 w-full"
+          className="btn btn-primary login-button btn-submit mt-3 w-full"
           type="submit"
         >
           Sign In With Google

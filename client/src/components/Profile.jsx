@@ -79,7 +79,7 @@ export default function Profile() {
             withCredentials: true,
           });
           console.log(dataResponse.data);
-          setData(dataResponse.data);
+          setData(dataResponse.data.health);
         }
       } catch (error) {
         setIsLoggedIn(false);
@@ -93,12 +93,15 @@ export default function Profile() {
     <div className="mb-3">
       <h5>{title}</h5>
       <ul className="list-group">
-        {items.map((item, index) => (
+        {items.length===0 ? <li className="list-group-item">No Data</li>:
+        items.map((item, index) => (
           <li key={index} className="list-group-item">
             {item}
           </li>
-        ))}
+        ))
+      }
       </ul>
+
     </div>
   );
 
@@ -115,40 +118,40 @@ export default function Profile() {
               <div className="mb-3">
                 <h5>Lifestyle</h5>
                 <ul className="list-group">
-                  <li className="list-group-item">Diet: {data.lifestyle?.diet || 'N/A'}</li>
-                  <li className="list-group-item">Activity Level: {data.lifestyle?.activity_level || 'N/A'}</li>
-                  <li className="list-group-item">Smoking Status: {data.lifestyle?.smoking_status || 'N/A'}</li>
-                  <li className="list-group-item">Alcohol Consumption: {data.lifestyle?.alcohol_consumption || 'N/A'}</li>
+                  <li className="list-group-item">Diet: {data.lifestyle?.diet || 'No Data'}</li>
+                  <li className="list-group-item">Activity Level: {data.lifestyle?.activity_level || 'No Data'}</li>
+                  <li className="list-group-item">Smoking Status: {data.lifestyle?.smoking_status || 'No Data'}</li>
+                  <li className="list-group-item">Alcohol Consumption: {data.lifestyle?.alcohol_consumption || 'No Data'}</li>
                 </ul>
               </div>
               <div className="mb-3">
                 <h5>Vital Signs</h5>
                 <ul className="list-group">
-                  <li className="list-group-item">Height: {data.vital_signs?.height || 'N/A'}</li>
-                  <li className="list-group-item">Weight: {data.vital_signs?.weight || 'N/A'}</li>
-                  <li className="list-group-item">BMI: {data.vital_signs?.bmi || 'N/A'}</li>
-                  <li className="list-group-item">Blood Pressure: {data.vital_signs?.blood_pressure || 'N/A'}</li>
-                  <li className="list-group-item">Heart Rate: {data.vital_signs?.heart_rate || 'N/A'}</li>
+                  <li className="list-group-item">Height: {data.vital_signs?.height || 'No Data'}</li>
+                  <li className="list-group-item">Weight: {data.vital_signs?.weight || 'No Data'}</li>
+                  <li className="list-group-item">BMI: {data.vital_signs?.bmi || 'No Data'}</li>
+                  <li className="list-group-item">Blood Pressure: {data.vital_signs?.blood_pressure || 'No Data'}</li>
+                  <li className="list-group-item">Heart Rate: {data.vital_signs?.heart_rate || 'No Data'}</li>
                 </ul>
               </div>
               {renderList("Symptoms", data.health_tracking?.symptoms)}
               <div className="mb-3">
                 <h5>Sleep Patterns</h5>
                 <ul className="list-group">
-                  <li className="list-group-item">Sleep Hours: {data.health_tracking?.sleep_patterns?.hours || 'N/A'}</li>
-                  <li className="list-group-item">Sleep Quality: {data.health_tracking?.sleep_patterns?.quality || 'N/A'}</li>
+                  <li className="list-group-item">Sleep Hours: {data.health_tracking?.sleep_patterns?.hours || 'No Data'}</li>
+                  <li className="list-group-item">Sleep Quality: {data.health_tracking?.sleep_patterns?.quality || 'No Data'}</li>
                 </ul>
               </div>
               {renderList("Exercise Logs", data.health_tracking?.exercise_logs)}
               <div className="mb-3">
                 <h5>Dietary Intake</h5>
-                <p>{data.health_tracking?.dietary_intake || 'N/A'}</p>
+                <p>{data.health_tracking?.dietary_intake || 'No Data'}</p>
               </div>
               <div className="mb-3">
                 <h5>Mental Health</h5>
                 <ul className="list-group">
-                  <li className="list-group-item">Stress Levels: {data.health_tracking?.mental_health?.stress_levels || 'N/A'}</li>
-                  <li className="list-group-item">Mood: {data.health_tracking?.mental_health?.mood || 'N/A'}</li>
+                  <li className="list-group-item">Stress Levels: {data.health_tracking?.mental_health?.stress_levels || 'No Data'}</li>
+                  <li className="list-group-item">Mood: {data.health_tracking?.mental_health?.mood || 'No Data'}</li>
                 </ul>
               </div>
               <div className="mb-3">
@@ -156,7 +159,7 @@ export default function Profile() {
                 <ul className="list-group">
                   {data.friends?.map((friend, index) => (
                     <li key={index} className="list-group-item">{friend}</li>
-                  )) || 'N/A'}
+                  )) || 'No Friends'}
                 </ul>
               </div>
             </div>

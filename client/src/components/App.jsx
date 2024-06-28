@@ -12,14 +12,14 @@ import BlogHome from './Blogs/BlogHome';
 import BlogDetails from './Blogs/BlogDetails';
 import BlogItem from './Blogs/BlogItem';
 import BlogCreate from './Blogs/BlogCreate';
-
+import Header from './Header';
 
 function App() {
   return (
     <>
       <Router>
         <AuthProvider>
-          {/* <Header /> */}
+          <Header />
           {/* <Alert alert={alert} /> */}
           <Routes>
             <Route exact path="/" element={<Home />} />
