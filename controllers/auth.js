@@ -105,7 +105,7 @@ const logout = function (req, res) {
     res.clearCookie('name');
     res.clearCookie('email');
     res.clearCookie('username');
-    res.cookie('userId', req.user._id);
+    res.clearCookie('userId');
     res.clearCookie('connect.sid');
 
     res.status(200).json({ message: 'Successfully logged out' });

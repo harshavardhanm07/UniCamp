@@ -18,6 +18,8 @@ const authRoute = require("./routes/auth.js");
 const healthRoute = require("./routes/health.js");
 const recommendationRoute = require("./routes/recommendation.js");
 const blogRoute= require("./routes/blog.js");
+const Profile=require('./routes/friends.js');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); 
 app.use(
@@ -62,6 +64,8 @@ app.use('/api/auth', authRoute);
 app.use('/api/health', healthRoute);
 app.use('/api/recommendation', recommendationRoute);
 app.use('/api/blog', blogRoute);
+app.use('/api/profile', Profile);
+
 
 app.get('/', async (req, res) => {
         res.send("welcome");

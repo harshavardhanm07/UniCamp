@@ -5,7 +5,7 @@ const { signup,login,logout,getUser, googleLogin, googleCallback, successLogin
 
 authRoute.post('/signup',signup);
 authRoute.post('/signin',login);
-authRoute.post('/logout',logout);
+authRoute.get('/logout',logout);
 authRoute.get('/user',getUser);
 authRoute.get('/google',googleLogin);
 authRoute.get('/google/callback',googleCallback);
