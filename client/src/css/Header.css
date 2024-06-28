@@ -26,3 +26,34 @@
 .navbar {
   background-color: #1a202c; /* Custom navbar color */
 }
+.navbar-fixed {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar-fixed-height {
+  height: 94px; /* Adjust the height as needed */
+}
+
+.navbar-brand-logo {
+  height: 48px; /* Adjust the logo height as needed */
+}
+
+.navbar-collapse-custom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-custom-button {
+  background-color: #63b3ed; /* Tailwind class bg-blue-300 */
+  color: #000; /* Tailwind class text-black */
+  margin-left: 1.25rem; /* Tailwind class ml-5 */
+  border: none;
+  padding: 0.5rem 1rem;
+}
+
+
+

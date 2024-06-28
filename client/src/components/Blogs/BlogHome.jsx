@@ -24,7 +24,7 @@ const BlogHome = () => {
 
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto p-6 pt-32">
       <h1 className="text-center text-4xl font-bold mb-5">Blog Home</h1>
       <div className="flex items-center mb-5 justify-end">
         <Link to={`create/`}>

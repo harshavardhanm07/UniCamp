@@ -57,25 +57,6 @@ export default function Login(props) {
   }
 
   return (
-    // <div>
-    //   <h1>Login</h1>
-    //   <form onSubmit={handleSubmit}>
-    //     <label>
-    //       Username:
-    //       <input name="username" type="text" value={credentials.username} onChange={handleChange} />
-    //     </label>
-
-    //     <label>
-    //       Password:
-    //       <input type="password" value={credentials.password} onChange={handleChange} name="password" />
-    //     </label>
-    //     <input type="submit" value="Submit" />
-    //   </form>
-
-    //   <button onClick={handleGOauthLogin} className="btn btn-primary login-button btn-submit" type="submit">
-    //     Sign In With Google
-    //   </button>
-    // </div>
     <div className=" flex-grow items-center p-28">
       <form
         className="flex flex-col max-w-md gap-4 mx-auto mt-8 p-4 bg-white rounded shadow-md"
@@ -122,11 +103,16 @@ export default function Login(props) {
         </Button>
         <Button
           onClick={handleGOauthLogin}
-          className="btn btn-primary login-button btn-submit mt-3 w-full"
+          className="mt-2 w-full "
           type="submit"
         >
           Sign In With Google
         </Button>
+        <div className="text-center">
+          <Link to="/signup" className="text-slate-500 hover:text-slate-700">
+            <span>Don't have an account? Sign Up</span>
+          </Link>
+        </div>
       </form>
     </div>
   );

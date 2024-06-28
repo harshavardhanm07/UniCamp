@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import { AuthContext } from '../context/logincontext';
 import axios from 'axios';
 // import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import BASE_URL from '../config';
 // import { UserNameContext } from '../context/namecontext';
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
@@ -207,11 +207,16 @@ export default function SignUp(props) {
         </Button>
         <Button
           onClick={handleGOauthLogin}
-          className="btn btn-primary login-button btn-submit mt-4 w-full"
+          className="mt-2 w-full"
           type="submit"
         >
           Sign In With Google
         </Button>
+        <div className="text-center">
+          <Link to="/login" className="text-slate-500 hover:text-slate-700">
+            <span>Already have an account? Sign In</span>
+          </Link>
+        </div>
       </form>
     </div>
   );
