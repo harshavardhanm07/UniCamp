@@ -1,6 +1,7 @@
 import { useState, useContext } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { AuthContext } from '../context/logincontext';
+import { UsernameContext } from '../context/usernamecontext';
 import BASE_URL from '../config';
 import axios from 'axios';
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
@@ -8,6 +9,7 @@ import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 export default function Login(props) {
   const navigate = useNavigate();
   const { setIsLoggedIn } = useContext(AuthContext);
+  const { setUsername } = useContext(UsernameContext);
 
   const [credentials, setCredentials] = useState({
     username: '',
@@ -38,14 +40,17 @@ export default function Login(props) {
       );
 
       if (response.status === 200 && response.data.success) {
+        setUsername(response.data.user.username);
         setIsLoggedIn(true);
         navigate('/dashboard');
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
+        props.showAlert('Invalid Credentials', 'danger');
         navigate('/login');
       } else if (error.response && error.response.status === 400) {
-        console.log(error.response.data);
+        props.showAlert('Please fill all the fields', 'danger');
+        // console.log(error.response.data);
         navigate('/login');
       }
     }

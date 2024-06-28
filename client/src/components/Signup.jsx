@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useContext } from 'react';
 import { AuthContext } from '../context/logincontext';
+import { UsernameContext } from '../context/usernamecontext';
 import axios from 'axios';
 // import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate, Link } from 'react-router-dom';
@@ -11,7 +12,7 @@ import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 
 export default function SignUp(props) {
   const { setIsLoggedIn } = useContext(AuthContext);
-
+  const { setUsername } = useContext(UsernameContext);
   const navigate = useNavigate();
   //   const [showPassword, setShowPassword] = useState(false);
   //   const [confirmPassword, setConfirmPassword] = useState('');
@@ -48,11 +49,10 @@ export default function SignUp(props) {
 
       if (response.status === 200 && response.status < 300) {
         const json = response.data;
-
         if (json.success) {
-          //   props.showAlert('Signup Success', 'success');
+          props.showAlert('Signup Success', 'success');
+          setUsername(json.user.username);
           setIsLoggedIn(true);
-          //   updateUserName(json.user.name);
           navigate('/addHealthData');
         }
       } else {
@@ -63,9 +63,9 @@ export default function SignUp(props) {
       if (error.response && error.response.status === 400) {
         const json = error.response.data;
         console.log(json);
-        // props.showAlert(json.error, 'danger');
+        props.showAlert(json.error, 'danger');
       } else {
-        // props.showAlert('Invalid Credentials', 'danger');
+        props.showAlert('Invalid Credentials', 'danger');
       }
       navigate('/signup');
     }

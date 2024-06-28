@@ -28,7 +28,7 @@ const healthSchema = new Schema({
       quality: String,
     },
     exercise_logs: [String],
-    dietary_intake: String,
+    dietary_intake: [String],
     mental_health: {
       stress_levels: String,
       mood: String,

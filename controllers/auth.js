@@ -17,7 +17,7 @@ const getUser = async (req, res) => {
       const response = {
         isLoggedIn: true,
         name: user.name,
-        username: user.username,
+        username: (user.username==undefined?null:user.username),
       };
 
       res.status(200).json(response);
@@ -112,51 +112,87 @@ const logout = function (req, res) {
   });
 };
 
-const googleLogin = 
-   passport.authenticate('google', {
-    scope: ['profile', 'email'],
-  });
-
+const googleLogin = passport.authenticate('google', {
+  scope: ['profile', 'email'],
+});
 
 //auth google callback
-const googleCallback = 
-  passport.authenticate('google', {
-    successRedirect: '/api/auth/login/success',
-    failureRedirect: '/api/auth/login/failed',
-  });
+const googleCallback = passport.authenticate('google', {
+  successRedirect: '/api/auth/login/success',
+  failureRedirect: '/api/auth/login/failed',
+});
 
-const successLogin = (req, res) => {
-  // let success = false;
-  
-  if (req.user) {
-    // console.log("hello")
-    // set the cookie set the user as authenticated
+const successLogin = async (req, res) => {
+  try {
+    if (req.user) {
+      // console.log("hello")
+      // set the cookie set the user as authenticated
+      res.cookie('email', req.user.email);
+      res.cookie('username', req.user.username);
+      res.cookie('userId', req.user._id);
+      res.cookie('name', req.user.name);
+
+      // var userI = { name: req.user.name, email: req.user.email };
+
+      // return res.status(200).json({ success: success, user: userI });
+
+      // res.redirect(`http://192.168.0.103:3000`);
+      const healthData = await Health.findOne({ user: req.user._id });
+      const user = await User.findOne({ _id: req.user._id });
+        console.log(healthData);
+      if (!user.username) {
+        return res.redirect(`http://localhost:3000/addAccountData`);
+      }
+      if (!healthData) {
+        return res.redirect(`http://localhost:3000/addHealthData`);
+      }
+
+      return res.redirect(`http://localhost:3000/dashboard`);
+    }
+  } catch (err) {
+    console.log(err);
+    return res.status(400).json({ message: 'Internal Server Error' });
+  }
+};
+
+const updateUser = async (req, res) => {
+  try {
+    const userId = req.user._id; // Assuming you store the user's ID in req.user
+    const updateFields = req.body; // This can include any number of fields to update
+
+    if (!ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: 'Invalid user ID' });
+    }
+
+    // Construct the update object dynamically based on provided fields
+    const updateObject = {};
+    for (const [key, value] of Object.entries(updateFields)) {
+      if (value != null) {
+        // Ensure null values are not included in the update
+        updateObject[key] = value;
+      }
+    }
+
+    const result = await User.updateOne(
+      { _id: new ObjectId(userId) },
+      { $set: updateObject }
+    );
+
+    if (result.matchedCount === 0) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+    res.cookie('name', req.user.name);
     res.cookie('email', req.user.email);
     res.cookie('username', req.user.username);
     res.cookie('userId', req.user._id);
-    res.cookie('name', req.user.name);
 
-    success = true;
-    // var userI = { name: req.user.name, email: req.user.email };
+    var resUser = { name: req.user.name, username: req.user.username };
 
-    // return res.status(200).json({ success: success, user: userI });
-
-    // res.redirect(`http://192.168.0.103:3000`);
-    const healthData = Health.findOne({ userId: req.user._id });
-    console.log(healthData);
-    if (healthData==null) {
-      return res.redirect(`http://localhost:3000/addAccountData`);
-    }
-    else {
-      return res.redirect(`http://localhost:3000/dashboard`);
-    }
+    return res.status(200).json({  user: resUser });
+  } catch (error) {
+    console.error('Error updating user:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
- else {
-    return res
-      .status(401)
-      .json({ success: success, message: 'Incorrect email or password' });
-  }
-  // res.redirect("/");
 };
 
 module.exports = {
@@ -167,4 +203,5 @@ module.exports = {
   googleLogin,
   googleCallback,
   successLogin,
+  updateUser,
 };

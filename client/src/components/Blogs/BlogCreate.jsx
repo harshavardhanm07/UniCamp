@@ -35,7 +35,7 @@ const BlogCreate = () => {
       const fetchBlog = async () => {
         setLoading(true);
         try {
-          const response = await axios.get(`${BASE_URL}/blog/${id}`);
+          const response = await axios.get(`${BASE_URL}/blog/${id}`,{withCredentials:true});
           setFormData(response.data);
           setLoading(false);
         } catch (error) {
@@ -67,8 +67,8 @@ const BlogCreate = () => {
     try {
       setLoading(true);
       const response = id
-        ? await axios.post(`${BASE_URL}/blog/edit/${id}`, formData)
-        : await axios.post(`${BASE_URL}/blog/create`, formData);
+        ? await axios.post(`${BASE_URL}/blog/edit/${id}`, formData,{withCredentials:true})
+        : await axios.post(`${BASE_URL}/blog/create`, formData,{withCredentials:true});
 
       console.log(response.data);
       setLoading(false);

@@ -59,12 +59,16 @@ import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
 import BASE_URL from '../config';
 import { AuthContext } from '../context/logincontext';
+import { UsernameContext } from '../context/usernamecontext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "../css/Profile.css";
+import { useNavigate, Link } from 'react-router-dom';
 
 export default function Profile() {
   const [data, setData] = useState(null);
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
+  const { username,setUsername } = useContext(UsernameContext);
+  const navigate=useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -72,22 +76,25 @@ export default function Profile() {
         const userResponse = await axios.get(BASE_URL + '/auth/user', {
           withCredentials: true,
         });
+
         setIsLoggedIn(userResponse.data.isLoggedIn);
 
         if (userResponse.data.isLoggedIn) {
-          const dataResponse = await axios.get(`${BASE_URL}/health`, {
+          const dataResponse = await axios.get(`${BASE_URL}/health/${username}`, {
             withCredentials: true,
           });
           console.log(dataResponse.data);
-          setData(dataResponse.data.health);
+          setData(dataResponse.data);
         }
       } catch (error) {
+        setUsername(''); 
         setIsLoggedIn(false);
+        navigate('/login');
       }
     }
 
     fetchData();
-  }, [isLoggedIn, setIsLoggedIn]);
+  }, [isLoggedIn, setIsLoggedIn, username, setUsername,navigate]);
 
   const renderList = (title, items =[]) => (
     <div className="mb-3">
@@ -109,7 +116,7 @@ export default function Profile() {
     <div className="container mt-5">
       <div className="card">
         <div className="card-body">
-          <h1 className="card-title text-center">Profile</h1>
+          <h1 className="card-title text-center">Welcome {username}</h1>
           <hr />
           {data ? (
             <div className="profile-data">

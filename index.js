@@ -41,7 +41,6 @@ app.use(flash());
 
 mongoose.Promise = Promise;
 app.use(passport.initialize());
-// persistent login sessions. Session expires after 6 months, or when deleted by user
 app.use(passport.session());
 app.use(cors({
   origin: 'http://localhost:3000',
@@ -68,7 +67,6 @@ app.use('/api/recommendation', recommendationRoute);
 app.use('/api/blog', blogRoute);
 app.use('/api/profile', Profile);
 
-
 app.get('/', async (req, res) => {
         res.send("welcome");
 });
@@ -76,14 +74,3 @@ app.get('/', async (req, res) => {
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 })
-
-
-// home
-// login
-// register
-
-// To do:
-// profile
-// logout
-// update profile
-// delete profile

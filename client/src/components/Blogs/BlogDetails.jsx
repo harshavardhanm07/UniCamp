@@ -92,7 +92,7 @@ export default function PostPage() {
 useEffect(() => {
   const fetchBlog = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/api/blog/${id}`);
+      const response = await axios.get(`http://localhost:5000/api/blog/${id}`,{withCredentials:true});
       setPost(response.data);
       setLoading(false);
     } catch (error) {
