@@ -2,8 +2,16 @@ const Health=require('../db').collection('Health');
 
 const getHealth = (req, res) => {
   
-  const user=req.user._id;
+  const user=req.params.userId;
+  if(user!==req.user._id){
+    res.status(403).json({ message: 'Forbidden' });
+  }
+
   Health.findOne({user:user}).then((health)=>{
+    if(!health.profile.contains(user)){
+      res.status(403).json({ message: 'Forbidden' });
+    }
+
     res.status(200).json({ health });
   }).catch((err)=>{
     res.status(500).json({ message: 'Internal server error' });

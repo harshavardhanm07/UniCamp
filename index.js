@@ -44,13 +44,15 @@ app.use(passport.initialize());
 // persistent login sessions. Session expires after 6 months, or when deleted by user
 app.use(passport.session());
 app.use(cors({
-  origin: 'http://localhost:3000', // allow to server to accept request from different origin
+  origin: 'http://localhost:3000',
+  // origin:"http://192.168.163.141:3000", // allow to server to accept request from different origin
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   credentials: true // allow session cookie from browser to pass through
 }));
 app.use((req, res, next) => {
     // access-control-allow-origin http://localhost:3000
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    // res.header('Access-Control-Allow-Origin', 'http://192.168.163.141:3000');
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header(
       'Access-Control-Allow-Headers',

@@ -5,6 +5,7 @@ import Dashboard from './Dashboard';
 import Home from './Landing';
 import Login from './Login';
 import Signup from './Signup';
+import AddAdditionalData from './AddAdditionalData';
 import HealthForm from './HealthForm';
 import { AuthProvider } from '../context/logincontext';
 import Profile from './Profile';
@@ -28,6 +29,7 @@ function App() {
             <Route exact path="/addHealthData" element={<HealthForm />} />
             <Route exact path="/dashboard" element={<Dashboard />} />
             <Route exact path="/profile" element={<Profile />} />
+            <Route exact path="/addAccountData" element={<AddAdditionalData />} />
             {/* Blogs */}
             <Route exact path="/blogs" element={<BlogHome />} />
             <Route exact path="/blogs/blog/:id" element={<BlogDetails />} />

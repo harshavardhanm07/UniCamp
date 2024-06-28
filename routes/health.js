@@ -3,8 +3,8 @@ const healthRoute=Router();
 const ensureAuthenticated=require('../middleware/ensureAuthenticated');
 const {getHealth, postHealth,updatehHealth}=require('../controllers/health');
 
-healthRoute.get('/',ensureAuthenticated, getHealth);
-healthRoute.post('/',ensureAuthenticated,postHealth)
-healthRoute.put('/',ensureAuthenticated,updatehHealth);
+healthRoute.get('/:username',ensureAuthenticated, getHealth);
+healthRoute.post('/:username',ensureAuthenticated,postHealth)
+healthRoute.put('/:username',ensureAuthenticated,updatehHealth);
 
 module.exports=healthRoute;

@@ -109,7 +109,7 @@ export default function Profile() {
     <div className="container mt-5">
       <div className="card">
         <div className="card-body">
-          <h1 className="card-title text-center">Welcome to the Profile</h1>
+          <h1 className="card-title text-center">Profile</h1>
           <hr />
           {data ? (
             <div className="profile-data">

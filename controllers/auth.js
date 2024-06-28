@@ -143,8 +143,9 @@ const successLogin = (req, res) => {
 
     // res.redirect(`http://192.168.0.103:3000`);
     const healthData = Health.findOne({ userId: req.user._id });
-    if (!healthData) {
-      return res.redirect(`http://localhost:3000/addHealthData`);
+    console.log(healthData);
+    if (healthData==null) {
+      return res.redirect(`http://localhost:3000/addAccountData`);
     }
     else {
       return res.redirect(`http://localhost:3000/dashboard`);
