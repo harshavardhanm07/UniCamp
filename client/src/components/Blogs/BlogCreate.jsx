@@ -89,7 +89,7 @@ const BlogCreate = () => {
   }
 
   return (
-    <div className="p-3 max-w-3xl mx-auto min-h-screen">
+    <div className="p-3 max-w-3xl mx-auto min-h-screen mt-6">
       <h1 className="text-center text-3xl my-7 font-semibold">
         {id ? "Update Post" : "Create a Post"}
       </h1>

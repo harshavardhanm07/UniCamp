@@ -1,9 +1,64 @@
-import React from "react";
+import AI from "../ai.png"; // Adjust the path to your image file
+import "../css/Home.css"; // Import the custom CSS file
 
 export default function Home() {
-    return (
-        <div>
-        <h1>Welcome to the Home Page</h1>
+  return (
+    <div className="bg-dashboard">
+      <div className="flex flex-col lg:flex-row-reverse items-center g-5 py-5 bg-blue-900">
+        <div className="w-full lg:w-1/2 p-5">
+          <img
+            src={AI}
+            className="w-full h-auto rounded-lg shadow-lg mx-auto lg:mx-0 bg-white"
+            alt="AI Illustration"
+          />
         </div>
-    );
-    }
+        <div className="w-full lg:w-1/2 p-10">
+          <h1 className="text-2xl lg:text-4xl font-bold mb-3 text-white">
+            Intelligent Health and Lifestyle Recommendations
+          </h1>
+          <p className="text-lg text-white text-justify">
+            Our app uses advanced AI models to provide personalized
+            recommendations based on your health and lifestyle inputs. Stay
+            ahead with tailored advice designed to improve your well-being and
+            quality of life.
+          </p>
+        </div>
+      </div>
+      <div className="py-5 bg-white mt-8 px-5">
+        <h2 className="text-2xl lg:text-3xl font-bold mb-5 text-center text-blue-900">
+          Features
+        </h2>
+        <div className="flex flex-col lg:flex-row gap-5 items-center ">
+          <div className="w-full lg:w-1/3 p-5 shadow-lg rounded-lg">
+            <h3 className="text-xl lg:text-2xl font-semibold text-blue-900 mb-3">
+              Blogs
+            </h3>
+            <p className="text-lg text-gray-700">
+              Stay informed with our latest articles on health, fitness, and
+              lifestyle trends, written by experts in the field.
+            </p>
+          </div>
+          <div className="w-full lg:w-1/3 p-5 shadow-lg rounded-lg">
+            <h3 className="text-xl lg:text-2xl font-semibold text-blue-900 mb-3">
+              Personalized Health Tracker
+            </h3>
+            <p className="text-lg text-gray-700">
+              Keep track of your health metrics with our intuitive tracker.
+              Monitor your progress and stay motivated to reach your health
+              goals.
+            </p>
+          </div>
+          <div className="w-full lg:w-1/3 p-5 shadow-lg rounded-lg">
+            <h3 className="text-xl lg:text-2xl font-semibold text-blue-900 mb-3">
+              Personalized Recommendations
+            </h3>
+            <p className="text-lg text-gray-700">
+              Get advice based on your health and lifestyle.
+              AI-driven recommendations help you make better choices every day.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

@@ -24,21 +24,23 @@ const BlogHome = () => {
 
 
   return (
-    <div className="container mx-auto p-6 pt-32">
+    <div className=" mx-auto p-6 pt-32 bg-slate-200">
       <h1 className="text-center text-4xl font-bold mb-5">Blog Home</h1>
       <div className="flex items-center mb-5 justify-end">
-        <Link to={`create/`}>
-          <Button outline gradientDuoTone="purpleToPink" className="">
-            Create
-          </Button>
-        </Link>
+        <Button
+          outline
+          gradientDuoTone="purpleToPink"
+          as={Link}
+          to={`http://localhost:3000/blogs/create`}
+        >
+          Created
+        </Button>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-      {blogs.map((blog) => (
-        <BlogItem key={blog._id} blog={blog} />
-      ))}
-    </div>
-
+        {blogs.map((blog) => (
+          <BlogItem key={blog._id} blog={blog} />
+        ))}
+      </div>
     </div>
   );
 };

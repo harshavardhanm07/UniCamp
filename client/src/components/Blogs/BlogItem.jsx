@@ -29,7 +29,7 @@ const BlogItem = ({ blog }) => {
         </div>
         <Link
           to={`blog/${blog._id}`}
-          className="text-teal-600 mt-2 self-end"
+          className="text-teal-600 mt-2 self-end no-underline hover:underline"
         >
           Read more
         </Link>
