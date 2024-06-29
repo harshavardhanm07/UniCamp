@@ -23,7 +23,7 @@ function Dashboard() {
   const [mentalWellbeing, setMentalWellbeing] = useState("");
   const [loading, setLoading] = useState(true);
   const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
-  const Navigate = useNavigate();
+  const navigate = useNavigate();
   useEffect(() => {
     async function fetchData() {
       try {
@@ -51,7 +51,7 @@ function Dashboard() {
         }
       }
       catch (error) {
-        Navigate("/login");
+        navigate("/login");
       }
       finally {
         setLoading(false);
@@ -65,7 +65,7 @@ function Dashboard() {
   }
 
   return (
-    <div className="bg-slate-200 p-6 pt-24">
+    <div className="bg-slate-200 p-6 pt-16">
       <h1 className="my-4 ">Dashboard</h1>
       <div className="pb-8">
         <div className="flex flex-wrap lg:flex-nowrap justify-between gap-6 items-center px-6 lg:px-12">

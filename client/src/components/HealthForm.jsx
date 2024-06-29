@@ -17,80 +17,28 @@ function HealthForm() {
   const [weight, setWeight] = useState('');
   const [bloodPressure, setBloodPressure] = useState('');
   const [heartRate, setHeartRate] = useState('');
-  const [symptoms, setSymptoms] = useState('');
+  const [symptoms, setSymptoms] = useState([]);
   const [sleepHours, setSleepHours] = useState('');
   const [sleepQuality, setSleepQuality] = useState('');
-  // const [exerciseLogs, setExerciseLogs] = useState('');
-  // const [dietaryIntake, setDietaryIntake] = useState('');
-  const [exerciseLogs, setExerciseLogs] = useState(['']);
-  const [dietaryIntake, setDietaryIntake] = useState(['']);
+  const [exerciseLogs, setExerciseLogs] = useState([]);
+  const [dietaryIntake, setDietaryIntake] = useState([]);
   const [stressLevels, setStressLevels] = useState('');
   const [mood, setMood] = useState('');
-  const handleExerciseLogChange = (index, value) => {
-    const updatedLogs = [...exerciseLogs];
-    updatedLogs[index] = value;
-    setExerciseLogs(updatedLogs);
-  };
-  const handleMedicalHistoryChange = (index, value) => {
-    const updatedHistory = [...medicalHistory];
-    updatedHistory[index] = value;
-    setMedicalHistory(updatedHistory);
+
+  const handleArrayChange = (setter, index) => (e) => {
+    setter((prev) => {
+      const newArray = [...prev];
+      newArray[index] = e.target.value;
+      return newArray.filter((item) => item.trim() !== ''); // Remove empty strings
+    });
   };
 
-  // Add field for Medical History
-  const addMedicalHistory = () => {
-    setMedicalHistory([...medicalHistory, '']);
+  const addToArray = (setter) => () => {
+    setter((prev) => [...prev, '']);
   };
 
-  // Remove field for Medical History
-  const removeMedicalHistory = (index) => {
-    const updatedHistory = [...medicalHistory];
-    updatedHistory.splice(index, 1);
-    setMedicalHistory(updatedHistory);
-  };
-
-  // Handle change for Allergies
-  const handleAllergiesChange = (index, value) => {
-    const updatedAllergies = [...allergies];
-    updatedAllergies[index] = value;
-    setAllergies(updatedAllergies);
-  };
-
-  // Add field for Allergies
-  const addAllergies = () => {
-    setAllergies([...allergies, '']);
-  };
-
-  // Remove field for Allergies
-  const removeAllergies = (index) => {
-    const updatedAllergies = [...allergies];
-    updatedAllergies.splice(index, 1);
-    setAllergies(updatedAllergies);
-  };
-  const addExerciseLog = () => {
-    setExerciseLogs([...exerciseLogs, '']);
-  };
-
-  const removeExerciseLog = (index) => {
-    const updatedLogs = [...exerciseLogs];
-    updatedLogs.splice(index, 1);
-    setExerciseLogs(updatedLogs);
-  };
-
-  const handleDietaryIntakeChange = (index, value) => {
-    const updatedIntake = [...dietaryIntake];
-    updatedIntake[index] = value;
-    setDietaryIntake(updatedIntake);
-  };
-
-  const addDietaryIntake = () => {
-    setDietaryIntake([...dietaryIntake, '']);
-  };
-
-  const removeDietaryIntake = (index) => {
-    const updatedIntake = [...dietaryIntake];
-    updatedIntake.splice(index, 1);
-    setDietaryIntake(updatedIntake);
+  const removeFromArray = (setter, index) => () => {
+    setter((prev) => prev.filter((_, i) => i !== index));
   };
 
   const calculateBMI = () => {
@@ -106,10 +54,9 @@ function HealthForm() {
     event.preventDefault();
     const bmi = calculateBMI();
 
-
     const data = {
-      medical_history: medicalHistory.split(',').map((item) => item.trim()),
-      allergies: allergies.split(',').map((item) => item.trim()),
+      medical_history: medicalHistory.map((item) => item.trim()).filter((item) => item !== ''),
+      allergies: allergies.map((item) => item.trim()).filter((item) => item !== ''),
       lifestyle: {
         diet,
         activity_level: activityLevel,
@@ -124,14 +71,14 @@ function HealthForm() {
         heart_rate: heartRate,
       },
       health_tracking: {
-        symptoms: symptoms.split(',').map((item) => item.trim()),
+        symptoms: symptoms.map((item) => item.trim()).filter((item) => item !== ''),
         sleep_patterns: {
           hours: sleepHours,
           quality: sleepQuality,
         },
       },
-      exercise_logs: exerciseLogs,
-      dietary_intake: dietaryIntake,
+      exercise_logs: exerciseLogs.map((item) => item.trim()).filter((item) => item !== ''),
+      dietary_intake: dietaryIntake.map((item) => item.trim()).filter((item) => item !== ''),
       mental_health: {
         stress_levels: stressLevels,
         mood,
@@ -145,48 +92,47 @@ function HealthForm() {
   };
 
   return (
+    <div className="py-36">
     <form className="health-form" onSubmit={handleSubmit}>
       <div className="form-group">
-        <label>Medical History (comma-separated):</label>
+        <label>Medical History:</label>
         {medicalHistory.map((history, index) => (
           <div key={index}>
             <input
               type="text"
               className="form-control"
               value={history}
-              onChange={(e) =>
-                handleMedicalHistoryChange(index, e.target.value)
-              }
+              onChange={handleArrayChange(setMedicalHistory, index)}
             />
             {medicalHistory.length > 1 && (
-              <button type="button" onClick={() => removeMedicalHistory(index)}>
+              <button type="button" onClick={removeFromArray(setMedicalHistory, index)}>
                 Remove
               </button>
             )}
           </div>
         ))}
-        <button type="button" onClick={addMedicalHistory}>
+        <button type="button" onClick={addToArray(setMedicalHistory)}>
           Add Medical History
         </button>
       </div>
       <div className="form-group">
-        <label>Allergies (comma-separated):</label>
+        <label>Allergies :</label>
         {allergies.map((allergy, index) => (
           <div key={index}>
             <input
               type="text"
               className="form-control"
               value={allergy}
-              onChange={(e) => handleAllergiesChange(index, e.target.value)}
+              onChange={handleArrayChange(setAllergies, index)}
             />
             {allergies.length > 1 && (
-              <button type="button" onClick={() => removeAllergies(index)}>
+              <button type="button" onClick={removeFromArray(setAllergies, index)}>
                 Remove
               </button>
             )}
           </div>
         ))}
-        <button type="button" onClick={addAllergies}>
+        <button type="button" onClick={addToArray(setAllergies)}>
           Add Allergies
         </button>
       </div>
@@ -244,24 +190,15 @@ function HealthForm() {
           onChange={(e) => setWeight(e.target.value)}
         />
       </div>
-      {/* <div className="form-group">
+      <div className="form-group">
         <label>BMI:</label>
         <input
           type="text"
           className="form-control"
-          value={bmi}
-          onChange={(e) => setBmi(e.target.value)}
+          value={calculateBMI()} // Call calculateBMI() here to display the calculated BMI
+          readOnly // Make the BMI field read-only since it's a derived value
         />
-      </div> */}
-      <div className="form-group">
-  <label>BMI:</label>
-  <input
-    type="text"
-    className="form-control"
-    value={calculateBMI()} // Call calculateBMI() here to display the calculated BMI
-    readOnly // Make the BMI field read-only since it's a derived value
-  />
-</div>
+      </div>
       <div className="form-group">
         <label>Blood Pressure:</label>
         <input
@@ -281,14 +218,26 @@ function HealthForm() {
         />
       </div>
       <div className="form-group">
-        <label>Symptoms (comma-separated):</label>
-        <input
-          type="text"
-          className="form-control"
-          value={symptoms}
-          onChange={(e) => setSymptoms(e.target.value)}
-        />
-      </div>
+  <label>Symptoms:</label>
+  {symptoms.map((symptom, index) => (
+    <div key={index}>
+      <input
+        type="text"
+        className="form-control"
+        value={symptom}
+        onChange={handleArrayChange(setSymptoms, index)}
+      />
+      {symptoms.length > 1 && (
+        <button type="button" onClick={removeFromArray(setSymptoms, index)}>
+          Remove
+        </button>
+      )}
+    </div>
+  ))}
+  <button type="button" onClick={addToArray(setSymptoms)}>
+    Add Symptom
+  </button>
+</div>
       <div className="form-group">
         <label>Sleep Hours:</label>
         <input
@@ -307,15 +256,6 @@ function HealthForm() {
           onChange={(e) => setSleepQuality(e.target.value)}
         />
       </div>
-      {/* <div className="form-group">
-        <label>Exercise Logs (comma-separated):</label>
-        <input
-          type="text"
-          className="form-control"
-          value={exerciseLogs}
-          onChange={(e) => setExerciseLogs(e.target.value)}
-        />
-      </div> */}
       <div className="form-group">
         <label>Exercise Logs:</label>
         {exerciseLogs.map((log, index) => (
@@ -324,28 +264,19 @@ function HealthForm() {
               type="text"
               className="form-control"
               value={log}
-              onChange={(e) => handleExerciseLogChange(index, e.target.value)}
+              onChange={handleArrayChange(setExerciseLogs, index)}
             />
             {exerciseLogs.length > 1 && (
-              <button type="button" onClick={() => removeExerciseLog(index)}>
+              <button type="button" onClick={removeFromArray(setExerciseLogs, index)}>
                 Remove
               </button>
             )}
           </div>
         ))}
-        <button type="button" onClick={addExerciseLog}>
+        <button type="button" onClick={addToArray(setExerciseLogs)}>
           Add Exercise Log
         </button>
       </div>
-      {/* <div className="form-group">
-        <label>Dietary Intake:</label>
-        <input
-          type="text"
-          className="form-control"
-          value={dietaryIntake}
-          onChange={(e) => setDietaryIntake(e.target.value)}
-        />
-      </div> */}
       <div className="form-group">
         <label>Dietary Intake:</label>
         {dietaryIntake.map((intake, index) => (
@@ -354,16 +285,16 @@ function HealthForm() {
               type="text"
               className="form-control"
               value={intake}
-              onChange={(e) => handleDietaryIntakeChange(index, e.target.value)}
+              onChange={handleArrayChange(setDietaryIntake, index)}
             />
             {dietaryIntake.length > 1 && (
-              <button type="button" onClick={() => removeDietaryIntake(index)}>
+              <button type="button" onClick={removeFromArray(setDietaryIntake, index)}>
                 Remove
               </button>
             )}
           </div>
         ))}
-        <button type="button" onClick={addDietaryIntake}>
+        <button type="button" onClick={addToArray(setDietaryIntake)}>
           Add Dietary Intake
         </button>
       </div>
@@ -389,6 +320,7 @@ function HealthForm() {
         Submit
       </button>
     </form>
+    </div>
   );
 }
 
