@@ -4,7 +4,7 @@ import { AuthContext } from '../context/logincontext';
 import { UsernameContext } from '../context/usernamecontext';
 import BASE_URL from '../config';
 import axios from 'axios';
-import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
+import { Button, Label, TextInput } from 'flowbite-react';
 
 export default function Login(props) {
   const navigate = useNavigate();

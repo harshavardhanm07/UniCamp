@@ -2,8 +2,8 @@ import React from 'react'
 
 const ErrorPage = () => {
   return (
-    <div>ErrorPage</div>
+    <div>Error!</div>
   )
 }
 
-export default ErrorPage
+export default ErrorPage;

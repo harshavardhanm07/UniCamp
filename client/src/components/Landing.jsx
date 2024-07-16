@@ -29,13 +29,13 @@ export default function Home() {
           Features
         </h2>
         <div className="flex flex-col lg:flex-row gap-5 items-center ">
-          <div className="w-full lg:w-1/3 p-5 shadow-lg rounded-lg">
+        <div className="w-full lg:w-1/3 p-5 shadow-lg rounded-lg">
             <h3 className="text-xl lg:text-2xl font-semibold text-blue-900 mb-3">
-              Blogs
+              Personalized Recommendations
             </h3>
             <p className="text-lg text-gray-700">
-              Stay informed with our latest articles on health, fitness, and
-              lifestyle trends, written by experts in the field.
+              Get advice based on your health and lifestyle.
+              AI-driven recommendations help you make better choices every day.
             </p>
           </div>
           <div className="w-full lg:w-1/3 p-5 shadow-lg rounded-lg">
@@ -50,13 +50,15 @@ export default function Home() {
           </div>
           <div className="w-full lg:w-1/3 p-5 shadow-lg rounded-lg">
             <h3 className="text-xl lg:text-2xl font-semibold text-blue-900 mb-3">
-              Personalized Recommendations
+              Blogs
             </h3>
             <p className="text-lg text-gray-700">
-              Get advice based on your health and lifestyle.
-              AI-driven recommendations help you make better choices every day.
+              Stay informed with our latest articles on health, fitness, and
+              lifestyle trends, written by experts in the field.
             </p>
           </div>
+          
+          
         </div>
       </div>
     </div>

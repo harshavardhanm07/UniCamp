@@ -77,7 +77,6 @@ passport.use(
             return done(null, false);
           } else {
             const dbUser = await User.findOne({ _id: result.insertedId });
-            // sendotpemail(dbUser.username, dbUser._id);
             return done(null, dbUser);
           }
         }

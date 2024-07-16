@@ -17,7 +17,7 @@ const getUser = async (req, res) => {
       const response = {
         isLoggedIn: true,
         name: user.name,
-        username: (user.username==undefined?null:user.username),
+        username: user.username == undefined ? null : user.username,
       };
 
       res.status(200).json(response);
@@ -139,7 +139,7 @@ const successLogin = async (req, res) => {
       // res.redirect(`http://192.168.0.103:3000`);
       const healthData = await Health.findOne({ user: req.user._id });
       const user = await User.findOne({ _id: req.user._id });
-        console.log(healthData);
+      console.log(healthData);
       if (!user.username) {
         return res.redirect(`http://localhost:3000/addAccountData`);
       }
@@ -188,7 +188,7 @@ const updateUser = async (req, res) => {
 
     var resUser = { name: req.user.name, username: req.user.username };
 
-    return res.status(200).json({  user: resUser });
+    return res.status(200).json({ user: resUser });
   } catch (error) {
     console.error('Error updating user:', error);
     res.status(500).json({ message: 'Internal server error' });

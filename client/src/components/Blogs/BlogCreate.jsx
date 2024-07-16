@@ -1,31 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import {
-  Alert,
-  Button,
-  FileInput,
-  Select,
-  TextInput,
-  Spinner,
-  Card,
-} from "flowbite-react";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css";
-import BASE_URL from "../../config";
-
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { Alert, Button, Select, TextInput, Spinner } from 'flowbite-react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
+import BASE_URL from '../../config';
 
 const BlogCreate = () => {
   const { id } = useParams();
-  console.log(id)
+  console.log(id);
   const navigate = useNavigate();
-//   const [file, setFile] = useState(null);
-  // const [imageUploadError, setImageUploadError] = useState(null);
   const [formData, setFormData] = useState({
-    title: "",
-    category: "uncategorized",
-    content: "",
-    image: "",
+    title: '',
+    category: 'uncategorized',
+    content: '',
+    image: '',
   });
   const [loading, setLoading] = useState(false);
   const [publishError, setPublishError] = useState(null);
@@ -35,11 +24,13 @@ const BlogCreate = () => {
       const fetchBlog = async () => {
         setLoading(true);
         try {
-          const response = await axios.get(`${BASE_URL}/blog/${id}`,{withCredentials:true});
+          const response = await axios.get(`${BASE_URL}/blog/${id}`, {
+            withCredentials: true,
+          });
           setFormData(response.data);
           setLoading(false);
         } catch (error) {
-          console.error("Error fetching blog:", error);
+          console.error('Error fetching blog:', error);
           setLoading(false);
         }
       };
@@ -48,33 +39,23 @@ const BlogCreate = () => {
     }
   }, [id]);
 
-//   const handleUploadImage = async () => {
-//     try {
-//       if (!file) {
-//         setImageUploadError("Please select an image");
-//         return;
-//       }
-//       setImageUploadError(null);
-//       setFormData({ ...formData, image: URL.createObjectURL(file) });
-//     } catch (error) {
-//       setImageUploadError("Image upload failed");
-//       console.error(error);
-//     }
-//   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       setLoading(true);
       const response = id
-        ? await axios.post(`${BASE_URL}/blog/edit/${id}`, formData,{withCredentials:true})
-        : await axios.post(`${BASE_URL}/blog/create`, formData,{withCredentials:true});
+        ? await axios.post(`${BASE_URL}/blog/edit/${id}`, formData, {
+            withCredentials: true,
+          })
+        : await axios.post(`${BASE_URL}/blog/create`, formData, {
+            withCredentials: true,
+          });
 
       console.log(response.data);
       setLoading(false);
-      navigate("/blogs");
+      navigate('/blogs');
     } catch (error) {
-      setPublishError("Something went wrong");
+      setPublishError('Something went wrong');
       setLoading(false);
       console.error(error);
     }
@@ -91,7 +72,7 @@ const BlogCreate = () => {
   return (
     <div className="p-3 max-w-3xl mx-auto min-h-screen mt-6">
       <h1 className="text-center text-3xl my-7 font-semibold">
-        {id ? "Update Post" : "Create a Post"}
+        {id ? 'Update Post' : 'Create a Post'}
       </h1>
       <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-4 sm:flex-row justify-between">
@@ -113,35 +94,12 @@ const BlogCreate = () => {
             }
           >
             <option value="uncategorized">Select a category</option>
-            <option value="javascript">JavaScript</option>
-            <option value="reactjs">React.js</option>
-            <option value="nextjs">Next.js</option>
+            <option value="javascript">Workout</option>
+            <option value="reactjs">health</option>
+            <option value="nextjs">Lifestyle</option>
           </Select>
         </div>
-        {/* <div className="flex gap-4 items-center justify-between border-4 border-teal-500 border-dotted p-3">
-          <FileInput
-            type="file"
-            accept="image/*"
-            onChange={(e) => setFile(e.target.files[0])}
-          />
-          <Button
-            type="button"
-            gradientDuoTone="purpleToBlue"
-            size="sm"
-            outline
-            onClick={handleUploadImage}
-          >
-            Upload Image
-          </Button>
-        </div> */}
-        {/* {imageUploadError && <Alert color="failure">{imageUploadError}</Alert>}
-        {formData.image && (
-          <img
-            src={formData.image}
-            alt="upload"
-            className="w-full h-72 object-cover"
-          />
-        )} */}
+
         <ReactQuill
           theme="snow"
           placeholder="Write something..."
@@ -152,7 +110,7 @@ const BlogCreate = () => {
           }}
         />
         <Button type="submit" gradientDuoTone="purpleToPink">
-          {id ? "Update" : "Publish"}
+          {id ? 'Update' : 'Publish'}
         </Button>
         {publishError && (
           <Alert className="mt-5" color="failure">

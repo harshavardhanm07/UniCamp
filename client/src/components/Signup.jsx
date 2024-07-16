@@ -7,28 +7,21 @@ import axios from 'axios';
 // import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useNavigate, Link } from 'react-router-dom';
 import BASE_URL from '../config';
-// import { UserNameContext } from '../context/namecontext';
-import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
+import { Button, Label, TextInput } from 'flowbite-react';
 
 export default function SignUp(props) {
   const { setIsLoggedIn } = useContext(AuthContext);
   const { setUsername } = useContext(UsernameContext);
   const navigate = useNavigate();
-  //   const [showPassword, setShowPassword] = useState(false);
-  //   const [confirmPassword, setConfirmPassword] = useState('');
-  //   const [samePassword, setSamePassword] = useState(true);
-  //   const { updateUserName } = useContext(UserNameContext);
 
   const [credentials, setCredentials] = useState({
     name: '',
     email: '',
     password: '',
     username: '',
+    mobile: '',
+    age: '',
   });
-
-  //   const togglePasswordVisibility = () => {
-  //     setShowPassword(!showPassword);
-  //   };
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -88,59 +81,6 @@ export default function SignUp(props) {
   }
 
   return (
-    // <div>
-    //   <h1>Login</h1>
-    //   <form onSubmit={handleSubmit}>
-    //     <label>
-    //       Email:
-    //       <input
-    //         name="email"
-    //         type="email"
-    //         value={credentials.email}
-    //         onChange={handleChange}
-    //       />
-    //     </label>
-
-    //     <label>
-    //       Username:
-    //       <input
-    //         name="username"
-    //         type="text"
-    //         value={credentials.username}
-    //         onChange={handleChange}
-    //       />
-    //     </label>
-    //     <label>
-    //       Name:
-    //       <input
-    //         name="name"
-    //         type="text"
-    //         value={credentials.name}
-    //         onChange={handleChange}
-    //       />
-    //     </label>
-
-    //     <label>
-    //       Password:
-    //       <input
-    //         type="password"
-    //         value={credentials.password}
-    //         onChange={handleChange}
-    //         name="password"
-    //       />
-    //     </label>
-    //     <input type="submit" value="Submit" />
-    //   </form>
-
-    //   <button
-    //     onClick={handleOauthLogin}
-    //     className="btn btn-primary login-button btn-submit"
-    //     type="submit"
-    //   >
-    //     Sign In With Google
-    //   </button>
-    // </div>
-
     <div className=" flex-grow items-center p-28">
       <form
         className="flex flex-col max-w-md gap-4 mx-auto mt-8 p-4 bg-white rounded shadow-md"
@@ -180,7 +120,7 @@ export default function SignUp(props) {
           <TextInput
             id="email1"
             type="email"
-            placeholder="name@flowbite.com"
+            placeholder="name@unicampnie.com"
             required
             className="w-full"
             onChange={handleChange}
@@ -200,6 +140,28 @@ export default function SignUp(props) {
             className="w-full"
             onChange={handleChange}
             name="password"
+          />
+        </div>
+        <div>
+          <Label htmlFor="age" className="mb-2 block" value="Your age" />
+          <TextInput
+            id="age"
+            type="number"
+            required
+            className="w-full"
+            onChange={handleChange}
+            name="age"
+          />
+        </div>
+        <div>
+          <Label htmlFor="mobile" className="mb-2 block" value="Your Mobile" />
+          <TextInput
+            id="mobile"
+            type="number"
+            required
+            className="w-full"
+            onChange={handleChange}
+            name="number"
           />
         </div>
         <Button type="submit" className="mt-4 w-full">

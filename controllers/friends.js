@@ -20,19 +20,11 @@ const getFriends= async (req, res) => {
 
 
     const healthDocuments = await Health.find(
-        { user: new ObjectId(req.params.userId) }, // Correctly match the user field with ObjectId
-        { projection: { friends: 1 } } // Correctly specify the projection to include only the 'friends' field
+        { user: new ObjectId(req.params.userId) }, 
+        { projection: { friends: 1 } } 
       ).toArray();
   
-      // Assuming each document in 'Health' collection might have a 'friends' array,
-      // and you want to aggregate all these arrays into a single array of friends.
-    //   const friends = healthDocuments.reduce((acc, doc) => {
-    //     if (doc.friends) {
-    //       acc.push(...doc.friends);
-    //     }
-    //     return acc;
-    //   }, []);
-  
+
       res.json(healthDocuments[0].friends);
 
 
@@ -50,8 +42,8 @@ const addFriend = async (req, res) => {
       if (!user) return res.status(404).json({ message: 'User not found' });
   
       const healthDocuments = await Health.find(
-        { user: new ObjectId(req.params.userId) }, // Correctly match the user field with ObjectId
-        { projection: { friends: 1 } } // Correctly specify the projection to include only the 'friends' field
+        { user: new ObjectId(req.params.userId) }, 
+        { projection: { friends: 1 } } 
       ).toArray();
      const friends= healthDocuments[0].friends;
       // Check if the user already has 3 friends
@@ -85,7 +77,7 @@ const deleteFriend=async (req, res) => {
         }
     const updateResult = Health.updateOne(
       { user: new ObjectId(userId) },
-      { $pull: { friends: new ObjectId(friendId) } } // Use $pull to remove the friendId from the array
+      { $pull: { friends: new ObjectId(friendId) } } 
     );
 
     if (updateResult.modifiedCount === 0) {

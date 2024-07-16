@@ -8,4 +8,5 @@ Profile.post('/:userId/friends',addFriend);
 // Remove a friend
 Profile.get('/:userId/friends/:friendId')
 Profile.post('/:userId/friends/:friendId',deleteFriend);
+
 module.exports= Profile;

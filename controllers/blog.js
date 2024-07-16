@@ -100,7 +100,6 @@ exports.likeBlog = async (req, res) => {
       return res.status(404).json({ message: 'Blog not found' });
     }
 
-    // Check if the user has already liked the blog
     if (blog.likes.some((like) => like.equals(new ObjectId(userId)))) {
       return res.status(400).json({ message: 'Blog already liked' });
     }

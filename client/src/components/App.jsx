@@ -1,4 +1,3 @@
-// App.jsx
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Dashboard from './Dashboard';
@@ -53,7 +52,7 @@ function App() {
               <Route
                 exact
                 path="/addAccountData"
-                element={<AddAdditionalData showAlert={showAlert}/>}
+                element={<AddAdditionalData showAlert={showAlert} />}
               />
               {/* Blogs */}
               <Route exact path="/blogs" element={<BlogHome />} />

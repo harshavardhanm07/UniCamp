@@ -2,10 +2,10 @@ import axios from 'axios';
 import React, { useState, useEffect, useContext } from 'react';
 import BASE_URL from '../config';
 import { useNavigate } from 'react-router-dom';
-import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
+import { Button, Label, TextInput } from 'flowbite-react';
 import { UsernameContext } from '../context/usernamecontext';
 export default function AddAdditionalData() {
-  const { username,setUsername } = useContext(UsernameContext);
+  const { username, setUsername } = useContext(UsernameContext);
   const [userInfo, setUserInfo] = useState({
     username: '',
     age: '',
@@ -28,7 +28,8 @@ export default function AddAdditionalData() {
         const response = await axios.get(`${BASE_URL}/auth/user`, {
           withCredentials: true,
         });
-        if (username) {
+
+        if (response.data.username) {
           navigate('/profile'); // Redirect to profile if username exists
         }
       } catch (error) {
@@ -38,7 +39,7 @@ export default function AddAdditionalData() {
     };
 
     checkUserStatus();
-  }, []);
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -49,7 +50,7 @@ export default function AddAdditionalData() {
       });
       if (response.status === 200) {
         const json = response.data;
-        
+
         setUsername(json.user.username);
         navigate('/addHealthData'); // Or wherever you want to redirect after
       }
@@ -60,33 +61,6 @@ export default function AddAdditionalData() {
   };
 
   return (
-    // <form onSubmit={handleSubmit}>
-    //   <input
-    //     type="text"
-    //     name="username"
-    //     value={userInfo.username}
-    //     onChange={handleChange}
-    //     placeholder="Username"
-    //     required
-    //   />
-    //   <input
-    //     type="number"
-    //     name="age"
-    //     value={userInfo.age}
-    //     onChange={handleChange}
-    //     placeholder="Age"
-    //     required
-    //   />
-    //   <input
-    //     type="tel"
-    //     name="mobileNumber"
-    //     value={userInfo.mobileNumber}
-    //     onChange={handleChange}
-    //     placeholder="Mobile Number"
-    //     required
-    //   />
-    //   <button type="submit">Update Profile</button>
-    // </form>
     <div className=" flex-grow items-center p-28">
       <form
         className="flex flex-col max-w-md gap-4 mx-auto mt-8 p-4 bg-white rounded shadow-md"

@@ -14,29 +14,21 @@ const getResponse = async (req, res) => {
   const user = req.user;
   const user_data = await Health.findOne({ user: user._id });
 
-  // Check if the user has submitted health data
   if (!user_data) {
-    // Prompt user to create their health profile if it doesn't exist
     return res.status(400).send({ message: "Please create your health profile." });
   }
 
   const oneWeekAgo = new Date();
   oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
-  // Check if the existing health profile is up-to-date
   if (new Date(user_data.lastUpdated) <= oneWeekAgo) {
-    // Prompt user to update their health profile if it's older than a week
     return res.status(400).send({ message: "Please update your health profile." });
   }
 
-  // Proceed with checking recommendations
   const existingRecommendations = await Recommendations.findOne({ user: user._id });
   if (existingRecommendations && new Date(existingRecommendations.lastUpdated) > oneWeekAgo) {
-    // Fetch from DB if they exist and are up to date
     res.send(existingRecommendations);
   } else {
-    // Call API if no recommendations exist or they are outdated
     main(user_data).then(async (result) => {
-      // Update or insert the new recommendations to the database
       result=JSON.parse(result);
       console.log(result.dietary_recommendations);
       const updateDoc = {
@@ -77,7 +69,7 @@ async function main(user_data) {
       {
         role: 'system',
         content:
-          'BreadBot is an AI health bot who gives personal suggestions based on the metrics passed by the user. You are also a personal nutritioner for the user. You have to provide personalized health suggestions based on the user health profile. You have to provide the suggestions in JSON format.',
+          'UniCampBot is an AI health bot who gives personal suggestions based on the metrics passed by the user. You are also a personal nutritioner for the user. You have to provide personalized health suggestions based on the user health profile. You have to provide the suggestions in JSON format.',
       },
       {
         role: 'user',
@@ -88,9 +80,8 @@ async function main(user_data) {
       },
     ],
     model: deployment,
-    max_tokens: 1000,
+    max_tokens: 2000,
   });
-// console.log(result.choices[0].message.content);
   return result.choices[0].message.content;
 }
 

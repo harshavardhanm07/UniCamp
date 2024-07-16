@@ -14,9 +14,13 @@ const getHealth = async (req, res) => {
     const healthData = await Health.findOne({ user: userId });
 
     if (!userId.equals(req.user._id)) {
-      if (!healthData.friends.map(friend => friend.toString()).includes(req.user._id.toString())) {
+      if (
+        !healthData.friends
+          .map((friend) => friend.toString())
+          .includes(req.user._id.toString())
+      ) {
         return res.status(403).json({ message: 'Forbidden' });
-      }else {
+      } else {
         return res.status(200).json(healthData);
       }
     } else {
@@ -27,7 +31,7 @@ const getHealth = async (req, res) => {
   }
 };
 
-const postHealth = (req, res) => {
+const postHealth = async (req, res) => {
   const {
     medical_history,
     allergies,
@@ -53,16 +57,11 @@ const postHealth = (req, res) => {
     friends: [],
   };
 
-  // Now you can use these variables in your function
-  // console.log( medical_history, allergies, lifestyle, vital_signs, health_tracking, exercise_logs, dietary_intake, mental_health);
-
-  // Save data to database...
-  Health.insertOne(health);
+  await Health.insertOne(health);
   res.status(200).json({ message: 'Data Added' });
 };
 
 const updatehHealth = () => {
-  //update health data
 
   const user = req.user._id;
   const {
